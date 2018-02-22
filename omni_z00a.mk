@@ -1,17 +1,23 @@
-# Inherit some common DU stuff.
-$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
+# Inherit some common omni stuff.
+$(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base_telephony.mk)
+
+# Get the prebuilt list of APNs
+$(call inherit-product, vendor/omni/config/gsm.mk)
 
 # Inherit device configuration
 $(call inherit-product, device/asus/Z00A/device.mk)
 
-$(call inherit-product, vendor/du/config/common_full_phone.mk)
+# must be before including omni part
+TARGET_BOOTANIMATION_SIZE := 1080p
+
+$(call inherit-product, vendor/omni/config/common.mk)
 
 DEVICE_PACKAGE_OVERLAYS += device/asus/Z00A/overlay
 
 PRODUCT_RUNTIMES := runtime_libart_default
 
 ## Device identifier. This must come after all inclusions
-PRODUCT_NAME := du_Z00A
+PRODUCT_NAME := omni_Z00A
 PRODUCT_BRAND := asus
 PRODUCT_MODEL := ASUS_Z00A
 PRODUCT_MANUFACTURER := asus
